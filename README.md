@@ -16,6 +16,7 @@ Considera las preferencias alimenticias y restricciones dietéticas del usuario.
 Interfaz de Usuario:
 
 Diseña una interfaz fácil de usar que permita a los usuarios establecer sus objetivos, ver las recomendaciones de productos y recibir instrucciones sobre la planificación de comidas.
+
 Paso 2: Desarrollo
 Scraping de Datos:
 
@@ -33,6 +34,8 @@ Considera la creación de una base de datos para almacenar información sobre pr
 Integración de Recetas y Consejos:
 
 Integra recetas y consejos nutricionales para proporcionar una experiencia más completa.
+
+
 Paso 3: Pruebas y Mejoras
 Pruebas de Usabilidad:
 
@@ -40,6 +43,8 @@ Realiza pruebas con usuarios reales para identificar posibles problemas de usabi
 Optimización del Algoritmo:
 
 Mejora el algoritmo de selección de productos y planificación de comidas en función de los comentarios y resultados de las pruebas.
+
+
 Paso 4: Implementación de la Aplicación
 Despliegue:
 
