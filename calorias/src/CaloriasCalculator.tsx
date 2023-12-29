@@ -1,6 +1,7 @@
 // src/CaloriasCalculator.tsx
 
 import React, { useState } from 'react';
+import DietaSemana from './DietaSemana';
 
 const CaloriasCalculator: React.FC = () => {
   const [altura, setAltura] = useState<number | string>('');
@@ -9,15 +10,15 @@ const CaloriasCalculator: React.FC = () => {
   const [nivelActividad, setNivelActividad] = useState<string>('sedentario');
   const [objetivo, setObjetivo] = useState<string>('mantenimiento');
   const [caloriasDiarias, setCaloriasDiarias] = useState<number | null>(null);
+  const [mostrarFormulario, setMostrarFormulario] = useState(true);
+  const [mostrarDieta, setMostrarDieta] = useState(false);
 
   const handleCalcularCalorias = async () => {
-    // Validar que se ingresen todos los datos necesarios
     if (!altura || !peso || !edad) {
       alert('Por favor, ingresa todos los campos obligatorios.');
       return;
     }
 
-    // Realizar la solicitud POST al servidor
     const response = await fetch('/calcular-calorias', {
       method: 'POST',
       headers: {
@@ -32,12 +33,12 @@ const CaloriasCalculator: React.FC = () => {
       }),
     });
 
-    // Verificar si la solicitud fue exitosa
     if (response.ok) {
       const data = await response.json();
       setCaloriasDiarias(data.caloriasDiarias);
+      setMostrarFormulario(false);
+      setMostrarDieta(true);
     } else {
-      // Manejar errores si la solicitud no fue exitosa
       alert('Hubo un error al procesar la solicitud.');
     }
   };
@@ -45,8 +46,9 @@ const CaloriasCalculator: React.FC = () => {
   return (
     <div>
       <h2>Calculadora de Calorías</h2>
-      <form>
-        <label>
+      {mostrarFormulario && ( // Mostrar el formulario solo si mostrarFormulario es verdadero
+        <form>
+          <label>
           Altura (cm):
           <input type="number" value={altura} onChange={(e) => setAltura(e.target.value)} />
         </label>
@@ -81,15 +83,18 @@ const CaloriasCalculator: React.FC = () => {
           </select>
         </label>
         <br />
-        <button type="button" onClick={handleCalcularCalorias}>
-          Calcular Calorías
-        </button>
-      </form>
-      {caloriasDiarias !== null && (
-        <p>Calorías diarias necesarias: {caloriasDiarias}</p>
-      )}
-    </div>
-  );
-};
+          <button type="button" onClick={handleCalcularCalorias}>
+            Calcular Calorías
+          </button>
+        </form>
+        )}
+        {caloriasDiarias !== null && (
+          <div>
+            <DietaSemana datosUsuario={{ altura, peso, edad, nivelActividad, objetivo }} caloriasDiarias={caloriasDiarias} />
+          </div>
+        )}
+      </div>
+    );
+  };
 
 export default CaloriasCalculator;

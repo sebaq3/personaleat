@@ -9,7 +9,7 @@ function calcularCalorias({ altura, peso, edad, nivelActividad, objetivo }) {
     const tasaMetabolicaBasal = 10 * peso + 6.25 * altura - 5 * edad;
     const caloriasDiarias = tasaMetabolicaBasal * factorActividad * factorObjetivo;
   
-    return caloriasDiarias;
+    return Math.round(caloriasDiarias);
   }
   
   function obtenerFactorActividad(nivelActividad) {

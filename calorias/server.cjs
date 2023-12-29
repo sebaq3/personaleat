@@ -1,13 +1,16 @@
 // server.cjs
-
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { calcularCalorias } = require('./calculoCalorias.cjs'); // Importar la lógica de cálculo
 
 const app = express();
 const port = process.env.PORT || 3000;
+const openaiApiKey = process.env.OPENAI_API_KEY;
 
-app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Ruta para procesar el formulario
@@ -27,8 +30,9 @@ app.post('/calcular-calorias', (req, res) => {
 });
 
 // Todas las demás rutas deben devolver el archivo 'index.html'
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+app.get('/', (req, res) => {
+  //res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  es.sendFile(__dirname + '/index.html');
 });
 
 // Iniciar el servidor
